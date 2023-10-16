@@ -5,7 +5,7 @@
     <title>BySell</title>
 </head>
 <body>
-<h1>BySell</h1>
+<h1>E-shop | <a href="/login">Войти</a></h1><hr>
 <h4>Товары России</h4>
 
 <form action="/" method="get">

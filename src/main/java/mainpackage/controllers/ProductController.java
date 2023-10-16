@@ -31,7 +31,7 @@ public class ProductController {
         return "product-info";
     }
 
-    @PostMapping("product/create")
+    @PostMapping("/product/create")
     public String createProduct(@RequestParam("file1")MultipartFile file1, @RequestParam("file2")MultipartFile file2,
                                 @RequestParam("file3")MultipartFile file3, Product product) {
         productService.saveProduct(product, file1, file2, file3);
