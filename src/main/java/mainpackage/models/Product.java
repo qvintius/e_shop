@@ -23,7 +23,6 @@ public class Product {
     private String description;
     private int price;
     private String city;
-    private String author;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Image> images = new ArrayList<>();
@@ -34,6 +33,9 @@ public class Product {
     private void init(){
         dateOfCreate = LocalDateTime.now();
     }
+
+    @ManyToOne(cascade = CascadeType.REFRESH) @JoinColumn(name = "user_id")
+    private User user;
 
     public void addImageToProduct(Image image){
         image.setProduct(this);

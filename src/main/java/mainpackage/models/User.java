@@ -12,6 +12,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,10 +27,10 @@ public class User implements UserDetails {//для Security
     private String email;
     private String phoneNumber;
     private String name;
-    private boolean active;
+    private boolean active;//пользователь не активный, когда забанен админом или не подтвердил почту
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "image_id")
-    private Image avatar;//пользователь не активный, когда забанен админом или не подьвердил почту
+    private Image avatar;
     @Column(length = 1000)
     private String password;
 
@@ -43,6 +44,9 @@ public class User implements UserDetails {//для Security
     private void init(){
         dateOfCreated = LocalDateTime.now();
     }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Product> products;
 
     //security methods
     @Override

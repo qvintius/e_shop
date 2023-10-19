@@ -4,13 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mainpackage.models.Image;
 import mainpackage.models.Product;
+import mainpackage.models.User;
 import mainpackage.repositories.ProductRepo;
+import mainpackage.repositories.UserRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -20,6 +23,7 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepo productRepo;
+    private final UserRepo userRepo;
     private final ModelMapper mapper;
 
     public List<Product> listProducts(String title){
@@ -31,7 +35,8 @@ public class ProductService {
         return productRepo.findById(id).orElse(null);
     }
 
-    public void saveProduct(Product product, MultipartFile file1, MultipartFile file2, MultipartFile file3){//загрузка фото
+    public void saveProduct(Principal principal, Product product, MultipartFile file1, MultipartFile file2, MultipartFile file3){//загрузка фото
+        product.setUser(getUserByPrincipal(principal)); //обёртка, в каком состоянии находится пользователь приложения
         Image image1;
         Image image2;
         Image image3;
@@ -48,13 +53,18 @@ public class ProductService {
             image3 = mapper.map(file3, Image.class);;
             product.addImageToProduct(image3);
         }
-        log.info("Saving new Product. Title: {}; Author: {}", product.getTitle(), product.getAuthor());
+        log.info("Saving new Product. Title: {}; Email: {}", product.getTitle(), product.getUser().getEmail());
         Product productFromDb = productRepo.save(product);//сохранить в бд
         if (productFromDb.getImages().size()>0)//пользователь может не добавить ни одного фото
             productFromDb.setPreviewImageId(productFromDb.getImages().get(0).getId());//установить id фото превью получив товар, если есть фото (первое загруженное фото будет превью)
 
 
         productRepo.save(product);//обновить товар с установленным id фото превью
+    }
+
+    public User getUserByPrincipal(Principal principal) {
+        if (principal == null) return new User();
+        return userRepo.findByEmail(principal.getName());
     }
 
 

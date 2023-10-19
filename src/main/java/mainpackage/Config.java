@@ -22,7 +22,7 @@ public class Config extends WebSecurityConfigurerAdapter {//устарейший
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/", "/product", "/images/**", "/registration", "/login")//какие url не защищены
+                .antMatchers("/", "/product/**", "/images/**", "/registration", "/login")//какие url не защищены
                 .permitAll()
                 .anyRequest().authenticated()//для отсальных url без входа доступ не получить
                 .and()
