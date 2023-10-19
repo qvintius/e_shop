@@ -26,7 +26,7 @@ public class Product {
     private String author;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    private List<Image> images;
+    private List<Image> images = new ArrayList<>();
     private Long previewImageId;//сразу получать id фото превью
     private LocalDateTime dateOfCreate;
 

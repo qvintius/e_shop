@@ -19,8 +19,9 @@ public class UserService {
             return false;
 
         user.setActive(true);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));//шифрование пароля
         user.getRoles().add(Role.ROLE_USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));//шифрование пароля
+
 
         log.info("Saving new User with email: {}", user.getEmail());
         uRepo.save(user);

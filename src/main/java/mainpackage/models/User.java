@@ -33,7 +33,7 @@ public class User implements UserDetails {//для Security
     @Column(length = 1000)
     private String password;
 
-    @ElementCollection(targetClass = Role.class)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)//значение роли в строковом типе
     private Set<Role> roles = new HashSet<>();
@@ -57,7 +57,7 @@ public class User implements UserDetails {//для Security
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override

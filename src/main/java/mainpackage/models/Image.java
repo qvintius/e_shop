@@ -23,6 +23,6 @@ public class Image {
     private boolean isPreviewImage;//фото для главного отображения
     private byte[] bytes;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
-    Product product;
+    @ManyToOne(cascade = CascadeType.REFRESH) @JoinColumn(name = "product_id")
+    private Product product;
 }

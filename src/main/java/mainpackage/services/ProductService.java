@@ -50,8 +50,7 @@ public class ProductService {
         }
         log.info("Saving new Product. Title: {}; Author: {}", product.getTitle(), product.getAuthor());
         Product productFromDb = productRepo.save(product);//сохранить в бд
-        //if (productFromDb.getImages().size()>0)
-        if (productFromDb.getImages() != null)//пользователь может не добавить ни одного фото
+        if (productFromDb.getImages().size()>0)//пользователь может не добавить ни одного фото
             productFromDb.setPreviewImageId(productFromDb.getImages().get(0).getId());//установить id фото превью получив товар, если есть фото (первое загруженное фото будет превью)
 
 
