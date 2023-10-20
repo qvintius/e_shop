@@ -9,11 +9,11 @@
 <#if user.avatar??><!--Если пользователь загружал свой аватар-->
     <img src="/images/${user.avatar.id}" height="60px"><br>
 </#if>
-<b>Имя пользователя: ${user.name}</b>
+<b>Имя пользователя: </b> ${user.name}</br>
 <b>Номер телефона: </b> ${user.phoneNumber}</br>
-<b>Email: ${user.email}</b>
+<b>Email: </b> ${user.email}
 
-<h4>Товры пользователя ${user.name}</h4>
+<h4>Товары пользователя ${user.name}</h4>
 <#list products as product>
     <div>
         <b>${product.title}</b> ${product.description} ${product.price} ${product.city} ${product.user.name}

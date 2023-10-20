@@ -14,7 +14,7 @@
 <!--вывод картинки (тег img) через отдельный контроллер. Получение картинок на товаре в контроллере товара и в цикле поочередно выводить через контроллер картинок-->
 <#list images as img>
     <img src="/images/${img.id}" height="60px"><br><br>
-</#list>-->
+</#list>
 <b>Название товара: </b>${product.title}<br>
 <b>Описание: </b>${product.description}<br>
 <b>Цена: </b>${product.price}<br>

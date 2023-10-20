@@ -48,7 +48,12 @@ public class User implements UserDetails {//для Security
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Product> products;
 
+
+
     //security methods
+    public boolean isAdmin(){
+        return roles.contains(Role.ROLE_ADMIN);
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
